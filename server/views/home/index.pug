@@ -1,0 +1,21 @@
+extends ../shared/layout
+block main-content
+  head
+    title Home
+  body 
+    .wrapper.row2
+      #container.clear
+        section#services.clear
+          each article in articles
+            article.one_third
+              h3 #{article.title}
+              img(src='/images/' + article.image, alt='')
+              h2 Description: #{article.description}
+              if (article.updatedDate)
+                h2 Last updated on: #{moment(article.updatedDate).format("YYYY/MM/DD")}
+              else
+                h2 Created on: #{moment(article.date).format("YYYY/MM/DD")}
+              h2 Views: #{article.views}
+              footer.more
+                a(href="/articles/details/" + article._id) Read More »
+            br

@@ -1,0 +1,43 @@
+doctype html  
+html  
+  head
+    title Global layout
+    link(href='/css/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/css/main.css', rel='stylesheet', type='text/css')
+  body
+    .container-fluid
+      nav.navbar.navbar-default(role='navigation')
+          .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+          .collapse.navbar-collapse.navbar-ex1-collapse
+            ul.nav.navbar-nav
+              li
+                a(href="/") Home
+              li
+                a(href="/about") About
+              li
+                a(href="/articles/create") Create an article
+              li
+                a(href="/articles/review") Review all articles
+              if (!currentUser)
+                li
+                  a(href="/users/register") Registration
+                li
+                  a(href="/users/login") Log in
+              else
+                li
+                  form#logout-form(method="post" action="/users/logout")
+                li
+                  a(href="javascript:document.getElementById('logout-form').submit()") Log out
+                br
+                h3#welcome-text Welcome #{currentUser.username} !
+    if (globalError)
+      h3.errtext= globalError
+    #content.container
+      block main-content
+  script(src='/js/jquery-3.1.1.min.js', type='text/javascript')
+  script(src='/js/bootstrap.min.js', type='text/javascript')

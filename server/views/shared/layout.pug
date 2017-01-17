@@ -18,23 +18,13 @@ html
               li
                 a(href="/") Home
               li
-                a(href="/about") About
+                a(href="/cars/create") Create a car
               li
-                a(href="/articles/create") Create an article
+                a(href="/cars/review") Review all cars
               li
-                a(href="/articles/review") Review all articles
-              if (!currentUser)
-                li
-                  a(href="/users/register") Registration
-                li
-                  a(href="/users/login") Log in
-              else
-                li
-                  form#logout-form(method="post" action="/users/logout")
-                li
-                  a(href="javascript:document.getElementById('logout-form').submit()") Log out
-                br
-                h3#welcome-text Welcome #{currentUser.username} !
+                a(href="/cars/removed") Review all deleted cars
+              li           
+                a(href="/cars/stats") Statistics
     if (globalError)
       h3.errtext= globalError
     #content.container

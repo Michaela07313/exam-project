@@ -1,22 +1,20 @@
-let Article = require('mongoose').model('Article')
+let Car = require('mongoose').model('Car')
 
 module.exports = {
   index: (req, res) => {
-    Article
+    Car
       .find()
+      .where('deleteMarker').equals(false)
       .limit(6)
-      .sort({ views: 'desc' })
-      .exec((err, articles) => {
+      .sort({ price: 'desc' })
+      .exec((err, cars) => {
         if (err) console.log(err)
-        Article.count().exec((err, count) => {
+        Car.count().exec((err, count) => {
           if (err) console.log(err)
           res.render('home/index', {
-            articles: articles
+            cars: cars
           })
         })
       })
-  },
-  about: (req, res) => {
-    res.render('home/about')
   }
 }

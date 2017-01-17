@@ -1,0 +1,41 @@
+extends ../shared/layout
+block main-content
+  head
+    title Car details
+  body
+    .wrapper.row2
+      #container.clear
+        section#services.clear
+          each car in cars
+            article.one_third(class=car.deleteMarker ? 'deleted' : '')
+              img(src='/images/' + car.image, alt='')
+              h2 Make: #{car.make}
+              h2 Model: #{car.model}
+              h2 Price: #{car.price}
+              h2 Created on: #{moment(car.date).format("YYYY/MM/DD")}
+              h2 Total views: #{car.views}   
+              footer.more
+                if (!car.deleteMarker)
+                  a(href="/cars/remove/" + car._id) Delete
+                else
+                  h2 This car is deleted. If you want to restore it, click the button below:
+                  a(href="/cars/restore/" + car._id) Undelete
+              br
+              form.formForComments(method="post" action="/cars/details/" + car._id + '/comment')
+                label(for="commentText") Enter your comment:
+                br
+                input(type="text" name="commentText" id="commentText" value=commentText)
+                br
+                label(for="username") Username:
+                br
+                input(type="text" name="username" id="username" value=username)
+                br
+                input(type="submit" value="Publish your comment")
+              br
+              if (car.comments.length > 0)
+                each comment in car.comments
+                  div.comment
+                    h2 Username: #{comment.username}
+                    h2 Comment: #{comment.commentText}
+                    h2 Published on: #{moment(comment.commentDate).format("YYYY/MM/DD")}
+                  br

@@ -1,0 +1,21 @@
+extends ../shared/layout
+block main-content
+ h1 Create a car
+  form(method="post" ref="uploadForm" id='uploadForm' enctype="multipart/form-data" action="/cars/imgupload")
+    label(for="title") Make
+    br
+    input(type="text" name="make" id="make" value=make)
+    br
+    label(for="model") Model
+    br
+    input(type="text" name="model" id="model" value=model)
+    br
+    label(for="price") Price
+    br
+    input(type="number" name="price" id="price" value=price)
+    br
+    label(for="image") Upload image (optional)
+    br
+    input(type="file" name="image" id="image")
+    br
+    input(type="submit" value="Upload your car")

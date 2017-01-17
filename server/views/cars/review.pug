@@ -1,0 +1,19 @@
+extends ../shared/layout
+block main-content
+  head
+    title Review all cars
+  body 
+    .wrapper.row2
+      #container.clear
+        section#services.clear
+          each car in cars
+            article.one_third
+              img(src='/images/' + car.image, alt='')
+              h2 Make: #{car.make}
+              h2 Model: #{car.model}
+              h2 Price: #{car.price}
+              h2 Created on: #{moment(car.date).format("YYYY/MM/DD")}
+              h2 Total views: #{car.views}
+              footer.more
+                a(href="/cars/details/" + car._id) Details »
+            br

@@ -17,8 +17,5 @@ require('./server/config/express')(config, app)
 // call all routes
 require('./server/config/routes')(app)
 
-// call passport to authenticate the user
-require('./server/config/passport')()
-
 app.listen(config.port)
-console.log('Express is ready!')
+console.log('Express is running!!')

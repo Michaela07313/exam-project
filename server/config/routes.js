@@ -1,51 +1,32 @@
 const controllers = require('../controllers')
-const auth = require('../config/auth')
-let Article = require('mongoose').model('Article')
+let addToHeader = (req, res, next) => {
+  res.header('My-Authorization', 'Admin')
+  if (!res.header('My-Authorization', 'Admin')) {
+    res.status(404)
+  }
+  next()
+}
 
 module.exports = (app) => {
-  // get request
-  /* app.get('/', (req, res) => {
-    // render pug template
-    res.render('index')
-  })*/
-
   app.get('/', controllers.home.index)
 
-  app.get('/about', controllers.home.about)
+  app.get('/cars/create', controllers.cars.create)
 
-  app.get('/users/register', controllers.users.register)
+  app.get('/cars/review', controllers.cars.review)
 
-  app.post('/users/create', controllers.users.create)
+  app.post('/cars/imgupload', controllers.cars.imgupload)
 
-  app.get('/users/login', controllers.users.login)
+  app.get('/cars/details/:id', controllers.cars.details)
 
-  app.post('/users/authenticate', controllers.users.authenticate)
+  app.get('/cars/remove/:id', controllers.cars.remove)
 
-  app.post('/users/logout', controllers.users.logout)
+  app.get('/cars/removed', controllers.cars.removed)
 
-  app.get('/articles/create', auth.isAuthenticated, controllers.articles.create)
+  app.get('/cars/restore/:id', controllers.cars.restore)
 
-  // app.post('/articles/upload', controllers.articles.upload)
+  app.post('/cars/details/:id/comment', controllers.cars.comment)
 
-  app.post('/articles/imgupload', controllers.articles.imgupload)
-
-  app.get('/articles/review', controllers.articles.review)
-
-  app.get('/articles/details/:id', auth.isAuthenticated, controllers.articles.details)
-
-  app.get('/articles/restore/:id', auth.isAuthenticated, controllers.articles.restore)
-
-  app.get('/articles/edit/:id', auth.isAuthenticated, controllers.articles.edit)
-
-  app.get('/articles/remove/:id', auth.isAuthenticated, controllers.articles.remove)
-
-  app.post('/articles/update', auth.isAuthenticated, controllers.articles.update)
-
-  app.post('/articles/details/:id/uplaodComment', auth.isAuthenticated, controllers.articles.uplaodComment)
-
-// app.get('/articles/comment', auth.isAuthenticated, controllers.articles.comment)
-
-
+  app.get('/cars/stats', addToHeader, controllers.cars.stats)
 
 
   app.all('*', (req, res) => {
